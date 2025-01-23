@@ -139,15 +139,15 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 void init_parameter_PID()
 {
 	//PID init
-	PIDInit(&motor_param.PIDRoll, 1, 0, 0, 0.01);
+	PIDInit(&motor_param.PIDRoll, 0.6, 0.15, 0.01, 0.02);
 	//PITCH
 	//PIDInit(&PIDPitch,  0.0156, 0.0100, 0.0056, 0.01); //kp = 1, kd = 1, ki = 0.0040, timesampling = 0.04
-	PIDInit(&motor_param.PIDPitch,  1, 0, 0, 1);
+	PIDInit(&motor_param.PIDPitch,  0.6, 0.15, 0.01, 0.02);
 	//YAW
 	//PIDInit(&PIDYaw, 0.125f, 0.0f, 0.000f, 0.01); //kp = 1, kd = 1, ki = 1, timesampling = 0.04
-	PIDInit(&motor_param.PIDYaw, 1, 0.20, 0.0f, 1);
+	PIDInit(&motor_param.PIDYaw, 1, 0.20, 0.0f, 0.01);
 	//Altitude
-	PIDInit(&motor_param.PIDAltitude, 1, 0.085, 0.00583, 0.01);
+	PIDInit(&motor_param.PIDAltitude, 1, 0.085, 0.0583, 0.01);
 }
 
 /* USER CODE END PFP */
@@ -209,7 +209,7 @@ int main(void)
   //  icm20948_init();
   //  ak09916_init();
     ICM_Filter_Kalman_Init();
-    BMP_Filter_Kalman_Init();
+    //BMP_Filter_Kalman_Init();
     ICMRef(&ICMSetPoint);
 
     HAL_UART_Receive_DMA(&huart2, data_receive_ibus, 32);
